@@ -14,4 +14,4 @@ Regular text with [inline link](@/about.md) and more text.
 
 ## Image with Alt Text
 
-![Test Image Alt](test-image.png)
+![Test Image Alt](/test-image.png)

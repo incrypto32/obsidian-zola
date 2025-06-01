@@ -108,9 +108,9 @@ exporter.run().expect("Export failed");
 ![Chart](../assets/chart.jpg)
 
 # After (Zola)
-![diagram.png](diagram.png)
+![diagram.png](/diagram.png)
 ![Logo](/logo.png)
-![Chart](assets/chart.jpg)
+![Chart](/assets/chart.jpg)
 ```
 
 ## Limitations

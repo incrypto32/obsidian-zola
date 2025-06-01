@@ -105,7 +105,7 @@ pub fn convert_to_zola_link_with_context(url: &str, context: &Context, source_di
 /// # Returns
 /// 
 /// A string with the converted URL. Internal images are properly resolved relative
-/// to the current file's location and converted to proper path format.
+/// to the current file's location and converted to absolute path format.
 pub fn convert_to_zola_image_with_context(url: &str, context: &Context, source_dir: &Path) -> String {
     // Don't process external URLs (http/https/ftp/mailto etc.)
     if url.contains("://") || url.starts_with("mailto:") || url.starts_with("data:") {
@@ -125,12 +125,12 @@ pub fn convert_to_zola_image_with_context(url: &str, context: &Context, source_d
     // Resolve the relative path from the current file's directory
     let resolved_path = resolve_relative_path(current_dir, url);
     
-    // Special handling for static/ paths - convert to root-relative
+    // Special handling for static/ paths - convert to root-relative without the "static/" prefix
     if resolved_path.starts_with("static/") {
         format!("/{}", &resolved_path[7..]) // Remove "static/" and add leading "/"
     } else {
-        // For other images, use regular path format (not @/ which is for content links)
-        resolved_path
+        // For all other images, convert to absolute path with leading slash
+        format!("/{}", resolved_path)
     }
 }
 

@@ -19,7 +19,7 @@ Welcome to the test vault!
 ## Image Embedding
 
 Here's an embedded image:
-![test-image.png](test-image.png)
+![test-image.png](/test-image.png)
 
 ## Markdown Embedding
 
