@@ -1,0 +1,31 @@
+[package]
+name = "obsidian-zola"
+version = "0.1.0"
+edition = "2021"
+description = "A personal tool for converting Obsidian vault exports to Zola static site generator format"
+readme = "README.md"
+repository = "https://github.com/yourusername/obsidian-zola"
+license = "MIT"
+keywords = ["obsidian", "zola", "markdown", "static-site", "converter"]
+categories = ["command-line-utilities", "text-processing"]
+authors = ["Krishnanand V <krishna.dev>"]
+
+[[bin]]
+name = "obsidian-zola"
+path = "src/main.rs"
+
+[lib]
+name = "obsidian_zola"
+path = "src/lib.rs"
+
+[dependencies]
+obsidian-export = "25.3.0"
+pulldown-cmark = "0.12.2"
+clap = { version = "4.5.22", features = ["derive"] }
+eyre = "0.6.12"
+serde_yaml = "0.9.34"
+color-eyre = "0.6.3"
+
+[dev-dependencies]
+tempfile = "3.14.0"
+assert_cmd = "2.0.17"

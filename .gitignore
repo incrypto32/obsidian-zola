@@ -1,0 +1,42 @@
+# Rust
+/target/
+**/*.rs.bk
+*.pdb
+
+# Cargo
+Cargo.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Test outputs
+tests/test_output/
+tests/debug_output/
+tests/temp_*/
+
+# Logs
+*.log
+
+# Local env files
+.env
+.env.local
+
+# Documentation build
+/docs/_build/
+
+# Temporary files
+*.tmp
+*.temp
