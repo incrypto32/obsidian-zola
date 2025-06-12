@@ -24,6 +24,7 @@ A specialized tool for converting Obsidian vault exports to Zola static site gen
 ✅ **Relative Path Resolution**: Proper path resolution from subdirectories  
 ✅ **Frontmatter Processing**: Maintains YAML frontmatter  
 ✅ **Unresolvable Link Handling**: `[[missing]]` → `*missing*` (italic text)  
+✅ **Passthrough Mode**: Copy certain files as-is without processing wikilinks
 
 ## Installation
 
@@ -56,6 +57,9 @@ obsidian-zola export --source ./my-vault --destination ./my-site/content --verbo
 
 # Skip frontmatter processing
 obsidian-zola export --source ./vault --destination ./content --skip-frontmatter
+
+# Copy certain files as-is without processing (passthrough)
+obsidian-zola export --source ./vault --destination ./content --passthrough "templates/*" --passthrough "*.template.md"
 ```
 
 ### Library Usage
@@ -112,6 +116,48 @@ exporter.run().expect("Export failed");
 ![Logo](/logo.png)
 ![Chart](/assets/chart.jpg)
 ```
+
+## Passthrough Mode
+
+Sometimes you want certain files to be copied **as-is** without any wikilink processing. This is useful for:
+
+- Template files that should keep their original `[[wikilinks]]`
+- Draft files that aren't ready for conversion
+- Files that use wikilinks for different purposes
+
+### Usage
+
+Use the `--passthrough` flag with glob patterns:
+
+```bash
+# Copy all files in templates/ folder as-is
+obsidian-zola export --source ./vault --destination ./content --passthrough "templates/*"
+
+# Copy specific file patterns as-is  
+obsidian-zola export --source ./vault --destination ./content --passthrough "*.template.md"
+
+# Multiple patterns (can be used multiple times)
+obsidian-zola export --source ./vault --destination ./content \
+  --passthrough "templates/*" \
+  --passthrough "drafts/**/*.md" \
+  --passthrough "*.raw.md"
+```
+
+### How It Works
+
+1. **First**: Files matching passthrough patterns are copied directly to the destination
+2. **Then**: These files are excluded from obsidian-export processing (via temporary `.export-ignore`)
+3. **Finally**: Remaining files are processed normally with wikilink conversion
+
+### Supported Glob Patterns
+
+- `*` - matches any number of characters (except `/`)
+- `?` - matches exactly one character
+- `**` - matches zero or more directories
+- `[abc]` - matches any character inside brackets
+- `templates/*` - all files directly in templates folder
+- `templates/**/*.md` - all .md files in templates and subdirectories
+- `*.template.md` - all files ending with .template.md
 
 ## Limitations
 
